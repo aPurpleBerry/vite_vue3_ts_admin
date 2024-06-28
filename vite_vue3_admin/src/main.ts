@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
+import '@/styles/index.scss'
 //svg配置代码
 import 'virtual:svg-icons-register'
 //引入element-plus
@@ -11,6 +11,10 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 
 //获取应用实例对象
 const app = createApp(App)
+
+//全局组件
+import gloablComponent from './components/index';
+app.use(gloablComponent);
 
 app.use(ElementPlus)
 app.use(ElementPlus, {
