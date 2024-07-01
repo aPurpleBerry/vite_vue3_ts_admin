@@ -19,22 +19,12 @@ div {
 
 <script setup lang="ts">
 import {Plus} from '@element-plus/icons-vue'
-import request from '@/utils/request';
 
 import { onMounted } from 'vue';
+import {reqLogin} from './api/user'
 import {ref} from 'vue'
 let myres:any = ref('')
 onMounted(()=>{
-  request({
-    url: '/user/login',
-    method: 'post',
-    data: {
-      username: 'admin',
-      password: '111111'
-    }
-  }).then(res => {
-    console.log(res);
-    myres.value = res
-  })
+  reqLogin({username:'admin',password:'111111'})
 })
 </script>
