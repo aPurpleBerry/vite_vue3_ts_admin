@@ -1,2 +1,20 @@
 //提供scss全局变量
-$color: green
+
+//左侧导航宽度
+$base_nav_width: 60px;
+// 左侧菜单宽
+$base-menu-width: 200px;
+// 左侧导航的背景颜色
+$base-menu-background: #001529;
+//顶部导航高度
+$base-tabbar-height: 120px;
+
+//layout右侧main背景颜色
+$main-bgc: rgb(225,227,229);
+
+//滚动条颜色
+$scrollbar-static-color: rgb(205,207,209);
+$scrollbar-hover-color: rgb(204,205,208);
+
+//border分割线的颜色
+$border-line-color:rgb(246,246,246);

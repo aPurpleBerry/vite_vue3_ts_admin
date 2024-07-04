@@ -45,3 +45,32 @@ ES6模块化
 
 ES6数组方法
 
+vue-router
+
+# 插槽
+
+elementplus中使用
+
+```
+<template #title>权限管理</template>
+<el-menu-item index="3-1">用户管理</el-menu-item>
+<el-menu-item index="3-2">角色管理</el-menu-item>
+<el-menu-item index="3-3">菜单管理</el-menu-item>
+```
+
+
+
+# elementplus相关
+
+
+
+# TS
+
+断言 
+
+src\store\modules\user.ts
+
+```
+localStorage.setItem('TOKEN',(result.data.token as string))
+```
+
