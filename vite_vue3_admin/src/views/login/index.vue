@@ -88,6 +88,8 @@ const validatorUserName = (rule: any, value: any, callback: any) => {
   //value:即为表单元素文本内容
   //函数:如果符合条件callBack放行通过即为
   //如果不符合条件callBack方法,注入错误提示信息
+  console.log(rule);
+  
   if (value.length >= 5) {
     callback();
   } else {
@@ -96,6 +98,8 @@ const validatorUserName = (rule: any, value: any, callback: any) => {
 }
 
 const validatorPassword = (rule: any, value: any, callback: any) => {
+  console.log(rule);
+
   if (value.length >= 6) {
     callback();
   } else {

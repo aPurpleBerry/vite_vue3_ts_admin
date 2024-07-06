@@ -4,11 +4,15 @@ import {defineStore} from 'pinia'
 import {reqLogin} from '@/api/user/index'
 import type{UserState} from './types/type'
 import { SET_TOKEN, GET_TOKEN } from '@/utils/token'
+//引入常量路由
+import { constantRoute } from '@/router/routes';
+
 let useUserStore = defineStore('User', {
   //存储数据
   state: ():UserState => {
     return {
-      token: GET_TOKEN()
+      token: GET_TOKEN(), //用户唯一标识token
+      menuRoutes: constantRoute //菜单生成路由
     }
   },
   //异步、逻辑

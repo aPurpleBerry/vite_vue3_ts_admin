@@ -21,7 +21,7 @@ import setting from '@/setting'
     height: 100%;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-size: 18px;
-    color: rgb(81,90,110);
+    color: $menu-text-color;
     line-height: 55px;
     align-items: center;
     padding-left: 22px;
