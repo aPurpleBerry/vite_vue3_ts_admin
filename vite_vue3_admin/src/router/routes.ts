@@ -49,7 +49,7 @@ export const constantRoute = [
         meta: {
           title: '菜单管理',
           hidden: false,
-          icon: 'Monitor'
+          icon: 'List'
         }
       },
       {
@@ -59,7 +59,7 @@ export const constantRoute = [
         meta: {
           title: '角色管理',
           hidden: false,
-          icon: 'UserFilled',
+          icon: 'HelpFilled',
         }
       },
       {
@@ -69,9 +69,63 @@ export const constantRoute = [
         meta: {
           title: '用户管理',
           hidden: false,
-          icon: 'User',
+          icon: 'Avatar',
         }
       },
+    ]
+  },
+  {
+    //组件
+    path: '/vcomponent',
+    component: ()=>import('@/layout/index.vue'),
+    name: 'Vcomponent', //命名路由
+    meta: {
+      title: '组件',
+      hidden: false,
+      icon: 'Tools'
+    },
+    redirect: '/vcomponent/vform',
+    children: [
+      {
+        path: '/vcomponent/vform',
+        component: ()=>import('@/views/vcomponent/vform/index.vue'),
+        name: 'Vform', //命名路由
+        meta: {
+          title: '表单',
+          hidden: false,
+          icon: 'Monitor'
+        }
+      },
+      {
+        path: '/vcomponent/vicon',
+        component: ()=>import('@/views/vcomponent/vicon/index.vue'),
+        name: 'Vicon', //命名路由
+        meta: {
+          title: '图标',
+          hidden: false,
+          icon: 'Monitor'
+        }
+      },
+      {
+        path: '/vcomponent/vlist',
+        component: ()=>import('@/views/vcomponent/vlist/index.vue'),
+        name: 'Vlist', //命名路由
+        meta: {
+          title: '列表',
+          hidden: false,
+          icon: 'Monitor'
+        }
+      },
+      {
+        path: '/vcomponent/vtable',
+        component: ()=>import('@/views/vcomponent/vtable/index.vue'),
+        name: 'Vtable', //命名路由
+        meta: {
+          title: '表格',
+          hidden: false,
+          icon: 'Monitor'
+        }
+      }
     ]
   },
   {

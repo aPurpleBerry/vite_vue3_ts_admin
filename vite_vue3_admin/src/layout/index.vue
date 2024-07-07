@@ -1,34 +1,19 @@
 <template>
   <div class="layout_container">
-    <!-- 左侧导航 -->
-    <!-- <div class="layout_nav">
-      <el-button @click="goHome">首页</el-button>
-      <el-button>组件</el-button>
-      <el-button>图表</el-button>
-      <el-button>配置</el-button>
-    </div> -->
     <!-- 左侧菜单 -->
     <div class="layout_menu">
       <Logo></Logo>
       <!-- 展示菜单 -->
-      <el-menu background-color="#00000" text-color="rgb(81,90,110)"> 
+      <el-menu background-color="#00000" text-color="rgb(81,90,110)" :default-active="$route.path"> 
         <!-- 根据路由动态生成 -->
         <Menu :menuList="userStore.menuRoutes"></Menu>
-        <!-- <el-menu-item index="1">首页</el-menu-item>
-        <el-menu-item index="2">数据大屏</el-menu-item>
-        折叠菜单 
-        <el-sub-menu index="3">
-          这个是具名插槽 
-          <template #title>权限管理</template>
-          <el-menu-item index="3-1">用户管理</el-menu-item>
-          <el-menu-item index="3-2">角色管理</el-menu-item>
-          <el-menu-item index="3-3">菜单管理</el-menu-item>
-        </el-sub-menu> -->
       </el-menu>
       
     </div>
     <!-- 右侧顶部 -->
-    <div class="layout_tabbar">456</div>
+    <div class="layout_tabbar">
+      <Tabbar></Tabbar>
+    </div>
     <!-- 右侧主内容 -->
     <div class="layout_main">
       <Main></Main>
@@ -40,10 +25,15 @@
 import Logo from './logo/index.vue'
 import Menu from './menu/index.vue'
 import Main from './main/index.vue'
+import Tabbar from './tabbar/index.vue'
 //用户相关小仓库
 import useUserStore from '@/store/modules/user';
-let userStore = useUserStore();
+//路由展开，获取路由对象
+import { useRoute } from 'vue-router';
 
+let userStore = useUserStore();
+//获取路由对象
+let $route = useRoute()
 
 </script>
 
@@ -66,13 +56,13 @@ let userStore = useUserStore();
     .el-menu {
       // width: 80%;
       border: 0!important;
-      padding: 10px;
+      // padding: 10px;
     }
   }
   .layout_tabbar {
     width: calc(100% - $base-menu-width);
     height: $base-tabbar-height;
-    background-color: blue;
+    // background-color: blue;
     position: fixed;
     top: 0;
     right: 0;
