@@ -1,25 +1,31 @@
 <template>
   <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div class="layout_menu">
+    <div class="layout_menu" :class="{fold:layOutSettingStore.fold?true:false}">
       <Logo></Logo>
       <!-- 展示菜单 -->
-      <el-menu background-color="#00000" text-color="rgb(81,90,110)" :default-active="$route.path"> 
+      <el-menu background-color="#00000" text-color="rgb(81,90,110)" :default-active="$route.path" :collapse="layOutSettingStore.fold?true:false" :collapse-transition="false"> 
         <!-- 根据路由动态生成 -->
         <Menu :menuList="userStore.menuRoutes"></Menu>
       </el-menu>
       
     </div>
     <!-- 右侧顶部 -->
-    <div class="layout_tabbar">
+    <div class="layout_tabbar" :class="{fold:layOutSettingStore.fold?true:false}">
       <Tabbar></Tabbar>
     </div>
     <!-- 右侧主内容 -->
-    <div class="layout_main">
+    <div class="layout_main" :class="{fold:layOutSettingStore.fold?true:false}">
       <Main></Main>
     </div>
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  name: 'Layout'
+}
+</script>
 
 <script setup lang="ts">
 import Logo from './logo/index.vue'
@@ -28,13 +34,14 @@ import Main from './main/index.vue'
 import Tabbar from './tabbar/index.vue'
 //用户相关小仓库
 import useUserStore from '@/store/modules/user';
+import useLayOutSettingStore from '@/store/modules/setting';
 //路由展开，获取路由对象
 import { useRoute } from 'vue-router';
 
 let userStore = useUserStore();
+let layOutSettingStore = useLayOutSettingStore()
 //获取路由对象
 let $route = useRoute()
-
 </script>
 
 <style scoped lang="scss">
@@ -42,21 +49,19 @@ let $route = useRoute()
   width: 100%;
   height: 100vh;
   display: flex;
-  // .layout_nav {
-  //   width: $base_nav_width;
-  //   height: 100vh;
-  //   background-color: $base-menu-background; 
-  //   display: flex;
-  //   flex-direction: column;
-  // }
+  transition: all 0.1s;
+
   .layout_menu {
     width: $base-menu-width;
     height: 100vh;
-    // background-color: grey;
+    z-index: 1;
+
     .el-menu {
-      // width: 80%;
       border: 0!important;
-      // padding: 10px;
+    }
+
+    &.fold {
+      width: $base-min-menu-width;
     }
   }
   .layout_tabbar {
@@ -65,7 +70,14 @@ let $route = useRoute()
     // background-color: blue;
     position: fixed;
     top: 0;
-    right: 0;
+    left: $base-menu-width;
+
+    transition: all 0.1s;
+    
+    &.fold {
+      width: calc(100% - $base-min-menu-width);
+      left: $base-min-menu-width;
+    }
   }
   .layout_main {
     width: calc(100% - $base-menu-width);
@@ -76,6 +88,12 @@ let $route = useRoute()
     right: 0;
     padding: 20px;
     overflow: auto;
+
+    transition: all 0.1s;
+    &.fold {
+      width: calc(100% - $base-min-menu-width);
+      left: $base-min-menu-width;
+    }
   }
 }
 </style>

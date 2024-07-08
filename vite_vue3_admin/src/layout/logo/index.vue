@@ -1,11 +1,21 @@
 <template>
   <div class="logo">
-    <span>{{ setting.title }}</span>
+    <span v-if="!layOutSettingStore.fold">{{ setting.title }}</span>
+    <span v-else>V</span>
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'Logo'
+}
+</script>
+
 <script setup lang="ts">
 import setting from '@/setting'
+import useLayOutSettingStore from '@/store/modules/setting';
+let layOutSettingStore = useLayOutSettingStore()
+
 </script>
 
 <style scoped lang="scss">

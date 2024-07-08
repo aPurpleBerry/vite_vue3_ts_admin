@@ -12,9 +12,9 @@ export const constantRoute = [
   { //登陆成功后展示的路由
     path: '/',
     component: ()=>import('@/layout/index.vue'),
-    name: 'layout', //命名路由
+    name: '', //命名路由
     meta: {
-      title: 'layout',
+      title: '',
       hidden: true,
       icon: 'Edit'
     },
@@ -40,7 +40,7 @@ export const constantRoute = [
       hidden: false,
       icon: 'Lock'
     },
-    redirect: '/acl/user',
+    redirect: '/acl/permission',
     children: [
       {
         path: '/acl/permission',

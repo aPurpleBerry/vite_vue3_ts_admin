@@ -1,6 +1,7 @@
 //axios二次封装：请求响应拦截器
 import axios from "axios";
 import { ElMessage } from "element-plus";
+import useUserStore from "@/store/modules/user";
 
 let request = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
@@ -8,6 +9,11 @@ let request = axios.create({
 })
 
 request.interceptors.request.use((config) => {
+  //获取用户相关的小仓库：获取仓库内部token，登陆成功之后携带给服务器
+  let userStore = useUserStore()
+  if(userStore.token) {
+    config.headers.token = userStore.token
+  }
   return config;
 })
 

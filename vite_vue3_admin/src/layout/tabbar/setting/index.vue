@@ -1,14 +1,59 @@
 <template>
   <div class="setting">
-    <el-icon @click="goHome" class="styleL"><Female /></el-icon>
-    <!-- <el-button size="default" icon="Refresh" circle bg="true"></el-button>
-    <el-button size="default" icon="Refresh" circle ></el-button> -->
+    <el-button size="default" icon="Refresh" circle bg="true" @click="updateRefsh"></el-button>
+    <el-button size="default" icon="FullScreen" circle  @click="fullScreen"></el-button>
+    <el-button size="default" icon="Setting" circle ></el-button>
+    <el-button size="default" icon="BellFilled" circle ></el-button>
+    <!-- admin  -->
+    <img :src="userStore.avatar" style="width: 30px;height: 30px;margin-left: 20px;margin-right: 5px; border-radius: 50%;">
+    <el-dropdown style="margin-right: 30px;cursor: pointer;">
+        <span class="el-dropdown-link">
+          {{userStore.username}}
+          <el-icon class="el-icon--right"><arrow-down /></el-icon>
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item>个人中心</el-dropdown-item>
+            <el-dropdown-item @click="logOut">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'Setting'
+}
+</script>
+
 <script setup lang="ts">
-const goHome = () => {
-  alert('111')
+import useUserStore from '@/store/modules/user';
+import useLayOutSettingStore from '@/store/modules/setting';
+//路由器
+import { useRouter, useRoute } from 'vue-router'
+let $router = useRouter()
+let $route = useRoute()
+// 刷新
+let layOutSettingStore = useLayOutSettingStore()
+const updateRefsh = () => {
+  layOutSettingStore.refsh = !layOutSettingStore.refsh
+}
+//头像和名称
+let userStore = useUserStore()
+// 全屏
+const fullScreen = () => {
+  let full = document.fullscreenElement 
+  if(!full) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen()
+  }
+}
+//退出登录
+const logOut = ()=> {
+  userStore.userLogout();
+  $router.push({path: '/login',query:{redirect:$route.path}})
 }
 </script>
 

@@ -4,7 +4,7 @@ import type {loginForm, loginResponseData, userResponseData} from './type'
 //统一管理接口
 enum API {
   LOGIN_URL = '/user/login',
-  USERINFO_URL = '/'
+  USERINFO_URL = '/user/info'
 }
 
 //暴露请求函数

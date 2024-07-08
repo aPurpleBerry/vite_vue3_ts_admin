@@ -6,6 +6,12 @@
   </el-tabs>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'Tab'
+}
+</script>
+
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router';
