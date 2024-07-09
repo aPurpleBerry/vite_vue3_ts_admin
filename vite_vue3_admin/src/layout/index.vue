@@ -50,11 +50,13 @@ let $route = useRoute()
   height: 100vh;
   display: flex;
   transition: all 0.1s;
-
+  background-color: $main-bgc;
   .layout_menu {
     width: $base-menu-width;
     height: 100vh;
+    background-color: #fff;
     z-index: 1;
+    box-shadow: rgb(234,237,239) 4px 4px 10px;
 
     .el-menu {
       border: 0!important;
@@ -67,22 +69,29 @@ let $route = useRoute()
   .layout_tabbar {
     width: calc(100% - $base-menu-width);
     height: $base-tabbar-height;
-    // background-color: blue;
+    background-color: #fff;
     position: fixed;
     top: 0;
-    left: $base-menu-width;
-
+    left: calc($base-menu-width + 20px);
+    // margin-right: 20px;
     transition: all 0.1s;
     
+    
+    z-index: 2;
+    box-shadow: rgb(234,237,239) 4px 4px 10px;
+
     &.fold {
       width: calc(100% - $base-min-menu-width);
-      left: $base-min-menu-width;
+      left: calc($base-min-menu-width + 20px)
     }
   }
   .layout_main {
     width: calc(100% - $base-menu-width);
-    height: calc(100vh - $base-tabbar-height);
+    // height: calc(100vh - $base-tabbar-height);
+    height: 100vh;
+    overflow: auto;
     background-color: $main-bgc;
+
     position: fixed;
     top: $base-tabbar-height;
     right: 0;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">   
     <router-view v-slot="{Component}">
       <transition name="fade">
         <!-- 渲染layout一级路由组件的子路由 -->
@@ -31,7 +31,8 @@ watch(() => layOutSettingStore.refsh, ()=>{
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
 .fade-enter-from {
   opacity: 0;
 }

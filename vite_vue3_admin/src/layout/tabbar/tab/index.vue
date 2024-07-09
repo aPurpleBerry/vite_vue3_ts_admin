@@ -1,7 +1,7 @@
 <template>
-  <el-tabs v-model="activeTab" @tab-change="tabChange" @tab-remove="tabRemove">
-      <el-tab-pane v-for="item in tabList" :key="item.path" :label="item.title" :name="item.path"
-          :closable="item.path != '/'">
+  <el-tabs v-model="activeTab"  @tab-change="tabChange" @tab-remove="tabRemove">
+      <el-tab-pane class="haha" v-for="item in tabList" :key="item.path" :label="item.title" :name="item.path"
+        :closable="item.path != '/'">
       </el-tab-pane>
   </el-tabs>
 </template>
@@ -33,7 +33,6 @@ const tabList = reactive([
 
 //点击标签导致activeTab改变时触发
 function tabChange(tab: string) {
-  console.log('tabChange')
   router.push(tab)
   activeTab.value = tab
 }
@@ -77,3 +76,13 @@ function tabRemove(targetTab: string) {
   
 }
 </script>
+
+<style scoped lang="scss">
+:deep(.el-tabs__nav-wrap::after) {
+  height: 0px !important;
+}
+
+:deep(.el-tabs__active-bar){
+  background-color:transparent !important;
+}
+</style>

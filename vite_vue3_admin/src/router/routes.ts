@@ -43,6 +43,26 @@ export const constantRoute = [
     redirect: '/acl/permission',
     children: [
       {
+        path: '/acl/personalcenter',
+        component: ()=>import('@/views/acl/personalcenter/index.vue'),
+        name: 'PersonalCenter', //命名路由
+        meta: {
+          title: '个人中心',
+          hidden: false,
+          icon: 'Location',
+        }
+      },
+      {
+        path: '/acl/user',
+        component: ()=>import('@/views/acl/user/index.vue'),
+        name: 'User', //命名路由
+        meta: {
+          title: '用户管理',
+          hidden: false,
+          icon: 'Avatar',
+        }
+      },
+      {
         path: '/acl/permission',
         component: ()=>import('@/views/acl/permission/index.vue'),
         name: 'Permission', //命名路由
@@ -61,17 +81,7 @@ export const constantRoute = [
           hidden: false,
           icon: 'HelpFilled',
         }
-      },
-      {
-        path: '/acl/user',
-        component: ()=>import('@/views/acl/user/index.vue'),
-        name: 'User', //命名路由
-        meta: {
-          title: '用户管理',
-          hidden: false,
-          icon: 'Avatar',
-        }
-      },
+      }
     ]
   },
   {

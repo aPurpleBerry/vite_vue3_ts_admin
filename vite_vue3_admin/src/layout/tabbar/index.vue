@@ -27,11 +27,12 @@ import Tab from './tab/index.vue'
   /* background-color: red; */
   display: flex;
   justify-content: space-between;
-
+  border-bottom: 0.5px solid $border-line-color;
 }
 .tabbar-bottom {
   width: 100%;
   height: 50px;
+  padding-left: 50px
   // background-color: yellow;
 }
 
