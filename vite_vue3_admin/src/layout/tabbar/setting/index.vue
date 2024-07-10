@@ -4,6 +4,11 @@
     <el-button size="default" icon="FullScreen" circle  @click="fullScreen"></el-button>
     <el-button size="default" icon="Setting" circle ></el-button>
     <el-button size="default" icon="BellFilled" circle ></el-button>
+    <span style="font-size:11px;position:absolute;right:140px;top:8px;border-radius: 50%;height: 20px;width: 20px;display: inline-block;background: rgb(255,77,79);vertical-align: top;">
+        <span style="display: block;color: #FFFFFF;height: 20px;line-height: 20px;text-align: center"> 
+          12
+        </span>
+    </span>
     <!-- admin  -->
     <img :src="userStore.avatar" style="width: 30px;height: 30px;margin-left: 20px;margin-right: 5px; border-radius: 50%;">
     <el-dropdown style="margin-right: 30px;cursor: pointer;">
