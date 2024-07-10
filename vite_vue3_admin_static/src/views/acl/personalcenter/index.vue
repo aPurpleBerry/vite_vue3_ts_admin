@@ -2,7 +2,7 @@
   <div class="pc">
     <div class="pc-content">
         <el-card style="width: 30%" shadow="hover" class="person-box">
-        <img :src="userStore.avatar">
+        <img src="@/assets/images/icon.gif">
         <h1>{{userStore.username}}</h1>
         <h2>From the mud to the stars.</h2>
         <el-button type="primary"><a href="https://github.com/aPurpleBerry" target="_blank">Follow me</a></el-button>

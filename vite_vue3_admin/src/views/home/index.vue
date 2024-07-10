@@ -1,7 +1,6 @@
 <template>
   <div>
     11
-    <CopyR></CopyR>
   </div>
 </template>
 

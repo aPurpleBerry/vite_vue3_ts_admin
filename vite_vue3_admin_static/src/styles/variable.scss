@@ -1,0 +1,25 @@
+//提供scss全局变量
+
+//左侧导航宽度
+$base_nav_width: 60px;
+// 左侧菜单宽
+$base-menu-width: 200px;
+$base-min-menu-width: 65px; //菜单折叠
+
+// 左侧导航的背景颜色
+$base-menu-background: #001529;
+//顶部导航高度
+$base-tabbar-height: 110px;
+
+//layout右侧main背景颜色
+$main-bgc: rgb(246,248,249);
+
+//滚动条颜色
+$scrollbar-static-color: rgb(205,207,209);
+$scrollbar-hover-color: rgb(204,205,208);
+
+//border分割线的颜色
+$border-line-color:rgb(246,246,246);
+
+//menu字体颜色
+$menu-text-color: rgb(81,90,110);
