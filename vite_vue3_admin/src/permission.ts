@@ -19,8 +19,9 @@ nprogress.configure({showSpinner: false})
 
 //全局守卫：项目当中任意路由切换都会触发的钩子
 //全局前置守卫
+//@ts-ignore
 router.beforeEach(async(to:any, from:any, next:any) => {
-  console.log('src\permission.ts - from未使用',from);
+  // console.log('src\permission.ts - from未使用',from);
   document.title = `${setting.title} - ${to.meta.title}` //网页名称
 
   nprogress.start() //进度条
