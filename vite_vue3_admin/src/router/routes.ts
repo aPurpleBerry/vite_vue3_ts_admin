@@ -85,6 +85,39 @@ export const constantRoute = [
     ]
   },
   {
+    path: '/news',
+    component: ()=>import('@/layout/index.vue'),
+    name: 'News',
+    meta: {
+      title: '新闻管理',
+      hidden: false,
+      icon: 'Files'
+    },
+    redirect: '/news/newsadd',
+    children: [
+      {
+        path: '/news/newsadd',
+        component: ()=>import('@/views/news-manage/NewsAdd.vue'),
+        name: 'NewsAdd', //命名路由
+        meta: {
+          title: '添加新闻',
+          hidden: false,
+          icon: 'DocumentAdd',
+        }
+      },
+      {
+        path: '/news/newslist',
+        component: ()=>import('@/views/news-manage/NewsList.vue'),
+        name: 'NewsEdit', //命名路由
+        meta: {
+          title: '新闻列表',
+          hidden: false,
+          icon: 'Tickets',
+        }
+      }
+    ]
+  },
+  {
     //组件
     path: '/vcomponent',
     component: ()=>import('@/layout/index.vue'),

@@ -55,8 +55,9 @@ router.beforeEach(async(to:any, from:any, next:any) => {
   
 }) 
 //全局后置守卫
+//@ts-ignore
 router.beforeEach((to:any, from:any) => {
-  console.log('src\permission.ts - from未使用',to,from);
+  // console.log('src/permission.ts - from未使用',to,from);
 
   nprogress.done() //进度条
 

@@ -26,6 +26,9 @@ dependencies:
   vue-router:
     specifier: ^4.4.0
     version: 4.4.0(vue@3.4.30)
+  wangeditor:
+    specifier: ^4.7.15
+    version: 4.7.15
 
 devDependencies:
   '@babel/eslint-parser':
@@ -311,6 +314,21 @@ packages:
     hasBin: true
     dependencies:
       '@babel/types': 7.24.7
+
+  /@babel/runtime-corejs3@7.25.0:
+    resolution: {integrity: sha512-BOehWE7MgQ8W8Qn0CQnMtg2tHPHPulcS/5AVpFvs2KCK1ET+0WqZqPvnpRpFN81gYoFopdIEJX9Sgjw3ZBccPg==, tarball: https://registry.npmmirror.com/@babel/runtime-corejs3/-/runtime-corejs3-7.25.0.tgz}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      core-js-pure: 3.38.0
+      regenerator-runtime: 0.14.1
+    dev: false
+
+  /@babel/runtime@7.25.0:
+    resolution: {integrity: sha512-7dRy4DwXwtzBrPbZflqxnvfxLF8kdZXPkhymtDeFoFqE6ldzjQFgYTtYIFARcLEYDrqfBfYcZt1WqFxRoyC9Rw==, tarball: https://registry.npmmirror.com/@babel/runtime/-/runtime-7.25.0.tgz}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.1
+    dev: false
 
   /@babel/template@7.24.7:
     resolution: {integrity: sha512-jYqfPrU9JTF0PmPy1tLYHW4Mp4KlgxJD9l2nP9fD6yT/ICi554DmrWBAEYpIelzjHf1msDP3PxJIRt/nFNfBig==, tarball: https://registry.npmmirror.com/@babel/template/-/template-7.24.7.tgz}
@@ -1747,6 +1765,11 @@ packages:
     resolution: {integrity: sha512-XgZ0pFcakEUlbwQEVNg3+QAis1FyTL3Qel9FYy8pSkQqoG3PNoT0bOCQtOXcOkur21r2Eq2kI+IE+gsmAEVlYw==, tarball: https://registry.npmmirror.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /core-js-pure@3.38.0:
+    resolution: {integrity: sha512-8balb/HAXo06aHP58mZMtXgD8vcnXz9tUDePgqBgJgKdmTlMt+jw3ujqniuBDQXMvTzxnMpxHFeuSM3g1jWQuQ==, tarball: https://registry.npmmirror.com/core-js-pure/-/core-js-pure-3.38.0.tgz}
+    requiresBuild: true
+    dev: false
 
   /cors@2.8.5:
     resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==, tarball: https://registry.npmmirror.com/cors/-/cors-2.8.5.tgz}
@@ -4072,6 +4095,10 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /regenerator-runtime@0.14.1:
+    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==, tarball: https://registry.npmmirror.com/regenerator-runtime/-/regenerator-runtime-0.14.1.tgz}
+    dev: false
+
   /regex-not@1.0.2:
     resolution: {integrity: sha512-J6SDjUgDxQj5NusnOtdFxDwN/+HWykR8GELwctJ7mdqhcyy1xEc4SRFHUXvxTp661YaVKAjfRLZ9cCqS6tn32A==, tarball: https://registry.npmmirror.com/regex-not/-/regex-not-1.0.2.tgz}
     engines: {node: '>=0.10.0'}
@@ -4845,7 +4872,6 @@ packages:
 
   /tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==, tarball: https://registry.npmmirror.com/tslib/-/tslib-2.6.3.tgz}
-    dev: true
 
   /type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==, tarball: https://registry.npmmirror.com/type-check/-/type-check-0.4.0.tgz}
@@ -5186,6 +5212,14 @@ packages:
       '@vue/server-renderer': 3.4.30(vue@3.4.30)
       '@vue/shared': 3.4.30
       typescript: 5.5.2
+
+  /wangeditor@4.7.15:
+    resolution: {integrity: sha512-aPTdREd8BxXVyJ5MI+LU83FQ7u1EPd341iXIorRNYSOvoimNoZ4nPg+yn3FGbB93/owEa6buLw8wdhYnMCJQLg==, tarball: https://registry.npmmirror.com/wangeditor/-/wangeditor-4.7.15.tgz}
+    dependencies:
+      '@babel/runtime': 7.25.0
+      '@babel/runtime-corejs3': 7.25.0
+      tslib: 2.6.3
+    dev: false
 
   /which-boxed-primitive@1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==, tarball: https://registry.npmmirror.com/which-boxed-primitive/-/which-boxed-primitive-1.0.2.tgz}

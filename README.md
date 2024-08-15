@@ -12,4 +12,4 @@
 
 
 
-先做静态页面
+先做静态页面 vite_vue3_admin_static
