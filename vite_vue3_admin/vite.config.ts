@@ -47,14 +47,14 @@ export default defineConfig(({command, mode})=>{
         [env.VITE_APP_BASE_API]: {
           target: env.VITE_SERVE, //获取数据的服务器地址设置
           changeOrigin: true, //需要代理跨域
-          rewrite:(path)=>path.replace(/^\/api/,''),// 路径重写 不要api的意思
-          bypass(req, res, options) {
-            //@ts-ignore
-            const proxyUrl = new URL(options.rewrite(req.url) || '',(options.target)as string)?.href || '';
-            console.log(proxyUrl);
-            req.headers['x-req-proxyUrl'] = proxyUrl
-            res.setHeader('x-res-proxyUrl',proxyUrl)
-          },
+          // rewrite:(path)=>path.replace(/^\/adminapi/,''),// 路径重写 不要api的意思
+          // bypass(req, res, options) {
+          //   //@ts-ignore
+          //   const proxyUrl = new URL(options.rewrite(req.url) || '',(options.target)as string)?.href || '';
+          //   console.log(proxyUrl);
+          //   req.headers['x-req-proxyUrl'] = proxyUrl
+          //   res.setHeader('x-res-proxyUrl',proxyUrl)
+          // },
         }
       }
     }

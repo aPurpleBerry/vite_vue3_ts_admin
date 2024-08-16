@@ -46,7 +46,7 @@ let $route = useRoute();
 //定义变量控制按钮加载效果
 let loading = ref(false);
 //收集账号与密码的数据
-let loginForm = reactive({ username: 'admin', password: '111111' });
+let loginForm = reactive({ username: 'admin', password: '123456' });
 //登录按钮回调
 const login = async () => {
   //保证全部表单相校验通过再发请求
@@ -72,7 +72,10 @@ const login = async () => {
     });
     //登录成功加载效果也消失
     loading.value = false;
+   
   } catch (error) {
+    console.log(error);
+    
     //登录失败加载效果消息
     loading.value = false;
     //登录失败的提示信息
@@ -83,8 +86,8 @@ const login = async () => {
   }
 }
 //自定义校验规则函数
+//@ts-ignore
 const validatorUserName = (rule: any, value: any, callback: any) => {
-  console.log('src\views\login\index.vue - rule',rule);
   //rule:即为校验规则对象
   //value:即为表单元素文本内容
   //函数:如果符合条件callBack放行通过即为
@@ -98,8 +101,9 @@ const validatorUserName = (rule: any, value: any, callback: any) => {
   }
 }
 
+//@ts-ignore
 const validatorPassword = (rule: any, value: any, callback: any) => {
-  console.log('src\views\login\index.vue - rule',rule);
+  // console.log('src\views\login\index.vue - rule',rule);
 
   if (value.length >= 6) {
     callback();

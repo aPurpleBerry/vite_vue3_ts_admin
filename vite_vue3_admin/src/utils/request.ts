@@ -9,7 +9,7 @@ let request = axios.create({
 })
 
 request.interceptors.request.use((config) => {
-  console.log('utils request 请求地址',config.url);
+  // console.log('utils request 请求地址',config.url);
   
   //获取用户相关的小仓库：获取仓库内部token，登陆成功之后携带给服务器
   let userStore = useUserStore()

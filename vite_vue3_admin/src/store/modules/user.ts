@@ -21,8 +21,8 @@ let useUserStore = defineStore('User', {
   actions: {
     //用户登录
     async userLogin(data: loginForm) {
-      let result:loginResponseData = await reqLogin(data)  
-      if(result.code == 200) {
+      let result:loginResponseData = await reqLogin(data)
+      if(result) {
         this.token = (result.data.token as string);
         SET_TOKEN((result.data.token as string))
         return 'ok'

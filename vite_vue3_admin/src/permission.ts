@@ -46,6 +46,8 @@ router.beforeEach(async(to:any, from:any, next:any) => {
       }
     }
   } else { //用户没有登录，无token
+    console.log('用户没有登录，无token');
+    
     if(to.path == '/login') {
       next()
     } else {
