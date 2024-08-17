@@ -5,13 +5,20 @@ export interface loginForm {
 }
 
 interface dataType {
+  code: number,
+
   token?: string,
   message?:string
+  avatar?: string,
+  role?: number,
+  gender?: number,
+  introduction?: string,
+  username?: string
 }
 
-//登录接口返回类型
+//登录接口返回类型 
 export interface loginResponseData {
-  code: number,
+  ActionType: string,
   data: dataType
 }
 

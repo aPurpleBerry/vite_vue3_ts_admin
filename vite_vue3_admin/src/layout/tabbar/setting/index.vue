@@ -46,6 +46,8 @@ const updateRefsh = () => {
 }
 //头像和名称
 let userStore = useUserStore()
+console.log(userStore.avatar);
+
 // 全屏
 const fullScreen = () => {
   let full = document.fullscreenElement 

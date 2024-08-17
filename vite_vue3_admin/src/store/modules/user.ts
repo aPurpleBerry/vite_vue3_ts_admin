@@ -22,21 +22,27 @@ let useUserStore = defineStore('User', {
     //用户登录
     async userLogin(data: loginForm) {
       let result:loginResponseData = await reqLogin(data)
-      if(result) {
+      // console.log('userts',result);
+      
+      if(result.data.code == 200) {
         this.token = (result.data.token as string);
         SET_TOKEN((result.data.token as string))
         return 'ok'
       } else {
-        return Promise.reject(new Error(result.data.message)) 
+        // return Promise.reject(new Error(result.data.message)) 
+        return Promise.reject(new Error('登陆出错')) 
       }
     },
     //获取用户信息方法
     async userInfo() {
-      let result = await reqUserInfo();
-
-      if(result.code == 200) {
-        this.username = result.data.checkUser.username
-        this.avatar = result.data.checkUser.avatar
+      let result:loginResponseData = await reqUserInfo();
+      console.log('userts userInfo',result);
+      console.log(result);
+      
+      if(result.data.code == 200) {
+  
+        this.username = result.data.username as string
+        this.avatar = result.data.avatar as string
         return 'ok'
       } else {
         return Promise.reject('获取用户信息失败')

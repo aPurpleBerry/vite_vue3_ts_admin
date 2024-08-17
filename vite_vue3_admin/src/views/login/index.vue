@@ -72,6 +72,9 @@ const login = async () => {
     });
     //登录成功加载效果也消失
     loading.value = false;
+    console.log('去吗');
+    
+    $router.push('/home')
    
   } catch (error) {
     console.log(error);

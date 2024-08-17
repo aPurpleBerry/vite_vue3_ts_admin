@@ -8,13 +8,13 @@ let request = axios.create({
   timeout: 5000
 })
 
-request.interceptors.request.use((config) => {
+request.interceptors.request.use((config) => { 
   // console.log('utils request 请求地址',config.url);
   
   //获取用户相关的小仓库：获取仓库内部token，登陆成功之后携带给服务器
   let userStore = useUserStore()
   if(userStore.token) {
-    config.headers.token = userStore.token
+    config.headers.Authorization = `Bearer ${userStore.token}`
   }
   return config;
 })
@@ -22,7 +22,9 @@ request.interceptors.request.use((config) => {
 request.interceptors.response.use(
   (response)=>{
     //成功回调
+    // console.log(response.data);
     return response.data;
+    
   }, 
   (error)=>{
     //失败回调

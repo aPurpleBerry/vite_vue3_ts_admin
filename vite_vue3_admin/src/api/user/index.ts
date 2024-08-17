@@ -11,5 +11,5 @@ enum API {
 //登录
 export const reqLogin = (data:loginForm) => request.post<any,loginResponseData>(API.LOGIN_URL, data);
 //获取用户信息接口方法
-export const reqUserInfo = () => request.get<any,userResponseData>(API.USERINFO_URL);
+export const reqUserInfo = () => request.get<any,loginResponseData>(API.USERINFO_URL);
 //泛型第一个参数服务器返回的数据类型，第二个参数是经过axios包装一层得到的

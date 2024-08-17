@@ -21,7 +21,6 @@ nprogress.configure({showSpinner: false})
 //全局前置守卫
 //@ts-ignore
 router.beforeEach(async(to:any, from:any, next:any) => {
-  // console.log('src\permission.ts - from未使用',from);
   document.title = `${setting.title} - ${to.meta.title}` //网页名称
 
   nprogress.start() //进度条
@@ -35,7 +34,10 @@ router.beforeEach(async(to:any, from:any, next:any) => {
         //登录成功后可以访问除了login之外的所有路由
         //保证token不过期
         //如果没有用户信息，在守卫这里发送请求获取用户信息
-        await userStore.userInfo()
+        if(!userStore.avatar) {
+          await userStore.userInfo()
+          console.log('permission');
+        }
         next()
       } catch(error) {
         //token过期，无法获取用户信息
@@ -46,8 +48,6 @@ router.beforeEach(async(to:any, from:any, next:any) => {
       }
     }
   } else { //用户没有登录，无token
-    console.log('用户没有登录，无token');
-    
     if(to.path == '/login') {
       next()
     } else {
