@@ -21,18 +21,20 @@ export interface loginResponseData {
   ActionType: string,
   data: dataType
 }
-
+/**~~~~~~~~~~~~~~~~~userinfo~~~~~~~~~~~~~~~~~~~~~~*/
 //GET
 interface userInfo {
-  userId: number,
+  code: number,
+  userId?: number,
   avatar: string,
   username: string,
   password: string,
-  desc: string,
-  roles: string[],
-  buttons: string[],
-  routes: string[],
-  token: string,
+  gender: number,
+  introduction: string,
+  // desc: string,
+  roles?: number, //错误
+  buttons?: string[],
+  routes?: string[],
 }
 interface user {
   checkUser: userInfo
@@ -40,6 +42,6 @@ interface user {
 
 //登录接口返回类型
 export interface userResponseData {
-  code: number,
-  data: user
+  ActionType: string,
+  data: userInfo
 }

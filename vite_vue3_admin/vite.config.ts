@@ -12,8 +12,6 @@ export default defineConfig(({command, mode})=>{
   let env = loadEnv(mode, process.cwd()); // 加载某环境的文件，以及文件的位置 process.cwd()是vite提供的
   //mode默认是开发环境
   console.log(env.VITE_APP_BASE_API);
-  
-
   return {
     plugins: [
       vue(),

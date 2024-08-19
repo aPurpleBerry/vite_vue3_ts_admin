@@ -27,6 +27,7 @@ router.beforeEach(async(to:any, from:any, next:any) => {
   //路由鉴权-通过token
   let token = userStore.token
   if(token) { //用户登陆了，有token
+    // alert('有token')
     if(to.path == '/login') {
       next({path:'/'})
     } else {
@@ -34,8 +35,10 @@ router.beforeEach(async(to:any, from:any, next:any) => {
         //登录成功后可以访问除了login之外的所有路由
         //保证token不过期
         //如果没有用户信息，在守卫这里发送请求获取用户信息
-        if(!userStore.avatar) {
+        if(!userStore.username) {
           await userStore.userInfo()
+  //万一刷新的时候是异步路由，有可能获取到用户信息 异步路由没有加载完毕，出现空白效果
+          next({...to})
           console.log('permission');
         }
         next()

@@ -32,22 +32,6 @@ export const constantRoute = [
     ]
   },
   {
-    path: '/404',
-    component: ()=>import('@/views/404/index.vue'),
-    name: '404', //命名路由
-    meta: {
-      title: '404',
-      hidden: true,
-      icon: 'SetUp'
-    },
-  }
-]
-
-
-//异步路由
-//权限管理、新闻管理、组件
-export const asyncRoute = [
-  {
     path: '/acl',
     component: ()=>import('@/layout/index.vue'),
     name: 'Acl', //命名路由
@@ -187,18 +171,27 @@ export const asyncRoute = [
       }
     ]
   },
+  {
+    path: '/404',
+    component: ()=>import('@/views/404/index.vue'),
+    name: '404', //命名路由
+    meta: {
+      title: '404',
+      hidden: true,
+      icon: 'SetUp'
+    },
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/404',
+    name: 'any', //命名路由
+    meta: {
+      title: 'any',
+      hidden: true,
+      icon: 'DataLine'
+    }
+  }
 ]
 
-export const anyRoute ={
-  path: '/:pathMatch(.*)*',
-  redirect: '/404',
-  // component: ()=>import('@/views/404/index.vue'),
-  name: 'any', //命名路由
-  meta: {
-    title: 'any',
-    hidden: true,
-    icon: 'DataLine'
-  }
-}
 
-
+//异步路由
