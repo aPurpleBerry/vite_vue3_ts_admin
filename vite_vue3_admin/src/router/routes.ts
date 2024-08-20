@@ -79,16 +79,6 @@ export const asyncRoute = [
         }
       },
       {
-        path: '/acl/permission',
-        component: ()=>import('@/views/acl/permission/index.vue'),
-        name: 'Permission', //命名路由
-        meta: {
-          title: '菜单管理',
-          hidden: false,
-          icon: 'List'
-        }
-      },
-      {
         path: '/acl/role',
         component: ()=>import('@/views/acl/role/index.vue'),
         name: 'Role', //命名路由
@@ -96,6 +86,16 @@ export const asyncRoute = [
           title: '角色管理',
           hidden: false,
           icon: 'HelpFilled',
+        }
+      },
+      {
+        path: '/acl/permission',
+        component: ()=>import('@/views/acl/permission/index.vue'),
+        name: 'Permission', //命名路由
+        meta: {
+          title: '菜单管理',
+          hidden: false,
+          icon: 'List'
         }
       }
     ]
@@ -124,7 +124,7 @@ export const asyncRoute = [
       {
         path: '/news/newslist',
         component: ()=>import('@/views/news-manage/NewsList.vue'),
-        name: 'NewsEdit', //命名路由
+        name: 'NewsList', //命名路由
         meta: {
           title: '新闻列表',
           hidden: false,
@@ -192,7 +192,6 @@ export const asyncRoute = [
 export const anyRoute ={
   path: '/:pathMatch(.*)*',
   redirect: '/404',
-  // component: ()=>import('@/views/404/index.vue'),
   name: 'any', //命名路由
   meta: {
     title: 'any',

@@ -36,9 +36,9 @@ interface userInfo {
   buttons?: string[],
   routes?: string[],
 }
-interface user {
-  checkUser: userInfo
-}
+// interface user {
+//   checkUser: userInfo
+// }
 
 //登录接口返回类型
 export interface userResponseData {

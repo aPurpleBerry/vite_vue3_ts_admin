@@ -51,7 +51,7 @@ let useUserStore = defineStore('User', {
     //获取用户信息方法
     async userInfo() {
       let result:userResponseData = await reqUserInfo();
-      console.log('userts userInfo',result);
+      // console.log('userts userInfo',result);
       
       if(result.data.code == 200) {
   
