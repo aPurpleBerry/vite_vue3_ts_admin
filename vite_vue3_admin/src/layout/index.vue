@@ -55,8 +55,8 @@ let $route = useRoute()
     width: $base-menu-width;
     height: 100vh;
     background-color: #fff;
-    z-index: 1;
-    box-shadow: rgb(234,237,239) 4px 4px 10px;
+    /*z-index: 1;*/
+    // box-shadow: rgb(234,237,239) 4px 4px 10px;
 
     .el-menu {
       border: 0!important;
@@ -77,7 +77,7 @@ let $route = useRoute()
     transition: all 0.1s;
     
     
-    z-index: 2;
+    /*z-index: 2;*/
     box-shadow: rgb(234,237,239) 4px 4px 10px;
 
     &.fold {

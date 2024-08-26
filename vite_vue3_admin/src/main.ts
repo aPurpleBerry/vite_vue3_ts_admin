@@ -17,6 +17,7 @@ import './permission'
 
 //获取应用实例对象
 const app = createApp(App)
+app.config.warnHandler=()=>null
 
 //全局组件
 import gloablComponent from './components/index';

@@ -23,6 +23,7 @@ export const constantRoute = [
       {
         path: '/home',
         component: ()=>import('@/views/home/index.vue'),
+        name:'home',
         meta: {
           title: '首页',
           hidden: false,
@@ -31,6 +32,30 @@ export const constantRoute = [
       }
     ]
   },
+  { //登陆成功后展示的路由
+    path: '/',
+    component: ()=>import('@/layout/index.vue'),
+    name: '', //命名路由
+    meta: {
+      title: '',
+      hidden: true,
+      icon: 'Edit'
+    },
+    redirect: '/personalcenter',
+    children: [
+      {
+        path: '/personalcenter',
+        component: ()=>import('@/views/acl/personalcenter/index.vue'),
+        name: 'PersonalCenter', //命名路由
+        meta: {
+          title: '个人中心',
+          hidden: false,
+          icon: 'Location',
+        }
+      },
+    ]
+  },
+  
   {
     path: '/404',
     component: ()=>import('@/views/404/index.vue'),
@@ -58,16 +83,6 @@ export const asyncRoute = [
     },
     redirect: '/acl/permission',
     children: [
-      {
-        path: '/acl/personalcenter',
-        component: ()=>import('@/views/acl/personalcenter/index.vue'),
-        name: 'PersonalCenter', //命名路由
-        meta: {
-          title: '个人中心',
-          hidden: false,
-          icon: 'Location',
-        }
-      },
       {
         path: '/acl/user',
         component: ()=>import('@/views/acl/user/index.vue'),

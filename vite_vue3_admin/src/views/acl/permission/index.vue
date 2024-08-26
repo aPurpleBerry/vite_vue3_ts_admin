@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <el-table :data="PermisstionArr" style="width: 100%; margin-bottom: 20px" row-key="aid" 
-      border :header-cell-style="{textAlign: 'center'}" >
+      border :header-cell-style="{textAlign: 'center'}"  default-expand-all >
         <el-table-column label="名称" prop="aname"></el-table-column>
         <el-table-column label="权限值" prop="code"></el-table-column>
         <el-table-column label="修改时间" prop="updatetime"></el-table-column>
@@ -53,7 +53,7 @@ const getHasPermisstion = async () => {
 
 <style scoped lang="scss">
 .container {
-  height: 98%;
+  height: 100%;
   padding: 20px 50px;
   overflow: scroll;
   background-color: #fff;

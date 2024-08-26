@@ -33,6 +33,8 @@ const tabList = reactive([
 
 //点击标签导致activeTab改变时触发
 function tabChange(tab: string) {
+  // console.log(tabList);
+  
   router.push(tab)
   activeTab.value = tab
 }
@@ -40,6 +42,9 @@ function tabChange(tab: string) {
 
 //添加路由 添加到标签页
 function addTab(tab: TabType) {
+  // console.log('======tabList=========');
+  // console.log(tabList);
+
   const index = tabList.findIndex((item) => item.path == tab.path)
   //选中的菜单项目前没有在标签页中 需要添加到标签页中
   if (index == -1) {
@@ -49,6 +54,8 @@ function addTab(tab: TabType) {
 
 //点击菜单导致路由变化 路由变化之前使用这个全局守卫 
 router.beforeEach((to) => {
+  // console.log(to.name);
+
   activeTab.value = to.path
   addTab({
       title: to.meta.title as string,
@@ -58,6 +65,9 @@ router.beforeEach((to) => {
 
 
 function tabRemove(targetTab: string) {
+  // console.log('======tabRemove=========');
+  // console.log(tabList);
+  
   let targetIndex: number = 0 //要关闭的tab的index    
 
   //先找到要删除的
@@ -70,9 +80,12 @@ function tabRemove(targetTab: string) {
   if (activeTab.value == targetTab) {
       const nextTab = tabList[targetIndex - 1] || tabList[targetIndex + 1]
       activeTab.value = nextTab.path
+      console.log('activeTab---',activeTab.value);
+      
       router.push(activeTab.value)
   }
   tabList.splice(targetIndex, 1)
+  console.log(tabList);
   
 }
 </script>
