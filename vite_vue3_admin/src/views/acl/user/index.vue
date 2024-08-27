@@ -14,7 +14,7 @@
     <el-card style="box-shadow: none; border: none;">
       <el-button type="primary" size="default" @click="addUser">添加用户</el-button>
       <!-- table展示用户信息 -->
-      <el-table @selection-change="selectChange" style="margin: 10px 0px;" border :data="userArr">
+      <el-table style="margin: 10px 0px;" border :data="userArr">
           <el-table-column type="selection" align="center"></el-table-column>
           <el-table-column label="#" align="center" type="index"></el-table-column>
           <el-table-column label="ID" align="center" prop="_id" show-overflow-tooltip></el-table-column>
@@ -68,13 +68,51 @@
             </div>
         </template>
     </el-drawer>
+
+    <!-- 抽屉结构:用户某一个已有的账号进行职位分配 -->
+    <el-drawer v-model="drawer1">
+        <template #header>
+            <h4>分配角色(职位)</h4>
+        </template>
+        <template #default>
+            <el-form>
+                <el-form-item label="用户姓名">
+                    <el-input v-model="userParams.username" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="职位列表">
+                  <el-radio-group v-model="userRole.roleName" >
+                    <el-radio
+                      v-for="(item) in allRole"
+                      :key="item._id"
+                      :label="item.roleName"
+                      @change="handleRadioGroup(item)"
+                    ></el-radio>
+                  </el-radio-group>
+                    <!-- <el-checkbox @change="handleCheckAllChange" v-model="checkAll"
+                        :indeterminate="isIndeterminate">全选</el-checkbox> -->
+                    <!-- 显示职位的的复选框 -->
+                    <!-- <el-checkbox-group v-model="userRole" @change="handleCheckedCitiesChange">
+                        <el-checkbox v-for="(role, index) in allRole" :key="index" :label="role">{{ role.roleName
+                        }}</el-checkbox>
+                    </el-checkbox-group> -->
+                </el-form-item>
+            </el-form>
+        </template>
+        <template #footer>
+            <div style="flex: auto">
+                <el-button @click="drawer1 = false">取消</el-button>
+                <el-button type="primary" @click="confirmClick">确定</el-button>
+            </div>
+        </template>
+    </el-drawer>
   </div>
 </template>
 
 <script setup lang="ts">
 import useLayOutSettingStore from '@/store/modules/setting';
 import { ref, onMounted, reactive, nextTick } from 'vue';
-import { reqUserInfo, reqRemoveUser,reqFindUser } from '@/api/acl/user'
+import { reqUserInfo, reqRemoveUser,reqFindUser,reqAddOrUpdateUser,reqSetUserRole } from '@/api/acl/user'
+import { reqAllRoleList } from '@/api/acl/role'
 import { ElNotification } from 'element-plus';
 
 let settingStore = useLayOutSettingStore(); //获取模板setting仓库
@@ -150,10 +188,12 @@ const addUser = () => {
     drawer.value = true;
     //清空数据
     Object.assign(userParams, {
-        id: 0,
+        _id: 0,
         username: '',
         name: '',
-        password: ''
+        password: '',
+        role: 0,
+        roleName: ''
     });
     //清除上一次的错误的提示信息
     // nextTick(() => {
@@ -181,24 +221,19 @@ const cancel = () => {
 const save = async () => {
     await formRef.value.validate()
     //保存按钮:添加新的用户|更新已有的用户账号信息
-    console.log(userParams)
-    // let result: any = await reqAddOrUpdateUser(userParams);
-    // //添加或者更新成功
-    // if (result.code == 200) {
-    //     //关闭抽屉
-    //     drawer.value = false;
-    //     //提示消息
-    //     ElMessage({ type: 'success', message: userParams.id ? '更新成功' : '添加成功' });
-    //     //获取最新的全部账号的信息
-    //     // getHasUser(userParams.id ? pageNo.value : 1);
-    //     //浏览器自动刷新一次
-    //     window.location.reload();
-    // } else {
-    //     //关闭抽屉
-    //     drawer.value = false;
-    //     //提示消息
-    //     ElMessage({ type: 'error', message: userParams.id ? '更新失败' : '添加失败' });
-    // }
+    console.log(userParams) 
+    try{
+      let res = await reqAddOrUpdateUser(userParams)
+      if(res.ActionType == 'ok') {
+        ElNotification({ type: 'success', message: userParams._id ? '更新成功' : '添加成功' });
+      }
+      drawer.value = false;
+      getHasUser();
+    } catch(Err) {
+      console.log(Err);
+      
+    }
+    
 }
 /*************************分页逻辑*********************** */
 onMounted(() => {
@@ -223,6 +258,9 @@ const getHasUser = async (pager = 1) => {
     console.log(result.data.result);
     if((start+pageSize.value-1)<=total.value) {
       userArr.value = result.data.result.slice(start,(start+pageSize.value))
+      console.log('-------------------------getHasUser-------userArr--------------');
+      console.log(userArr.value);
+      
     } else {
       userArr.value = result.data.result.slice(start)
     }
@@ -248,6 +286,86 @@ const deleteUser= async (id:number)=>{
   } catch(Err) {
     console.log(Err);
   }
+}
+
+/******************** 分配角色 ***************************/
+let allRole = ref([]); //存储全部职位的数据
+let userRole = reactive({
+  role: 0,
+  roleName: ""
+});
+
+const setRole = async (row: any) => {
+  // console.log('!!!!!!!!!!!!!setRole!!!!!!!!!!!!!!!');  
+  // console.log(row);
+  
+    //存储已有的用户信息
+    Object.assign(userParams, row);
+    // console.log(userParams);
+    drawer1.value = true;
+    //获取全部的职位的数据与当前用户已有的职位的数据
+    let result: any = await reqAllRoleList();
+    // console.log(result.data.ans)
+    allRole.value = result.data.ans
+    userRole.roleName = row.roleName
+    userRole.role = row.role
+    // console.log('---userRole---');
+    // console.log(userRole);
+    
+    // if (result.code == 200) {
+    //     //存储全部的职位
+    //     allRole.value = result.data.allRolesList;
+    //     //存储当前用户已有的职位
+    //     userRole.value = result.data.assignRoles;
+    //     //抽屉显示出来
+    //     drawer1.value = true;
+    // }
+
+}
+
+const handleRadioGroup=(item:any)=>{
+  // console.log($event, item);
+  // userRole.value = item
+  // console.log(item);
+  userRole.role = item.rid
+  userRole.roleName = item.roleName
+  // console.log(userRole);
+  
+}
+
+//确定按钮的回调(分配职位)
+const confirmClick = async () => {
+    //收集参数
+    let data = {
+      userId: userParams._id,
+      role: userRole.role,
+      roleName: userRole.roleName
+    }
+    console.log(data);
+    
+    //分配用户的职位
+    try {
+      let result: any = await reqSetUserRole(data);
+      if(result.ActionType == 'ok') {
+        ElNotification({
+          type: 'success',
+          message: '分配角色成功'
+        })
+      }
+    } catch(Err) {
+      console.log(Err);  
+    }
+    drawer1.value = false;
+    getHasUser()
+    // if (result.code == 200) {
+    //     //提示信息
+    //     ElNotification({ type: 'success', message: '分配职务成功' });
+    //     //关闭抽屉
+    //     drawer1.value = false;
+    //     //获取更新完毕用户的信息,更新完毕留在当前页
+    //     getHasUser();
+
+    // }
 }
 </script>
 
