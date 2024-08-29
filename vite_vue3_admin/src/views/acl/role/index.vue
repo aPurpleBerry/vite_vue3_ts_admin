@@ -21,7 +21,7 @@
           <el-table-column label="更新时间" align="center" show-overflow-tooltip prop="updateTime"></el-table-column>
           <el-table-column label="操作" width="280px" align="center">
               <!-- row:已有的职位对象 -->
-              <template #="{ row, $index }">
+              <template #="{ row }">
                   <el-button type="primary" size="small" icon="User" @click="setPermisstion(row)">分配权限</el-button>
                   <el-button type="primary" size="small" icon="Edit" @click="updateRole(row)">编辑</el-button>
                   <el-popconfirm :title="`你确定要删除${row.roleName}?`" width="260px" @confirm="removeRole(row._id)">
@@ -122,12 +122,14 @@ const setPermisstion = async (row: RoleData) => {
       // console.log(allpermissiontree);
       //获取到所有的权限
       if(!menuArr.value.length) {
+        //@ts-ignore
         menuArr.value.push(allpermissiontree.data.ans2)
       }
       
       //清空选中的节点
       tree.value.setCheckedKeys([])
       //根据角色分配选中的节点
+      //@ts-ignore
       selectArr.value=row.level3
       // console.log(selectArr.value);
     } catch(Err) {
@@ -142,6 +144,7 @@ const setPermisstion = async (row: RoleData) => {
 }
 
 //自定义校验规则的回调
+//@ts-ignore
 const validatorRoleName = (rule: any, value: any, callBack: any) => {
     if (value.trim().length >= 2) {
         callBack();
@@ -194,16 +197,15 @@ const updateRole=async(row:any)=>{
   
 }
 
-//确定按钮的回调
+//添加职位/修改职位 确定按钮的回调
 const save = async () => {
   await form.value.validate(); //表单校验结果,结果通过在发请求、结果没有通过不应该在发生请求
   if(RoleParams.rid) {
-    // console.log('更新');
     let req = {_id:RoleParams._id, roleName:RoleParams.roleName}
     let res = await reqUpdateRole(req)
     try {
       ElNotification({
-        type: 'success',
+        type: res.data.ActionType=='ok'?'success':'error',
         message: res.data.message
       })
       getHasRole()
@@ -241,32 +243,47 @@ const handler = async ()=>{
     level3
   } 
   console.log(req);
-
-  try {
-    let result: any = await reqUpdateRolePermission(req);
-    console.log(result);
+  if(req._id == '66d0460852b485bba2be883e') {
     ElNotification({
-      type: 'success',
-      message: '更新成功'
-    })
+        type: 'error',
+        message: '您无权修改管理员权限'
+      })
     drawer.value = false
-  } catch(Err) {
-    console.log(Err);
-  }
-}
-
-const removeRole = async (_id:number)=>{
-  console.log(_id);
-  try {
-    let result: any = await reqRemoveRole(_id);
-    console.log(result);
-    if(result.ActionType == 'ok') {
+  } else {
+    try {
+      let result: any = await reqUpdateRolePermission(req);
+      console.log(result);
       ElNotification({
         type: 'success',
-        message: '删除成功'
+        message: '更新成功'
       })
+      drawer.value = false
+    } catch(Err) {
+      console.log(Err);
     }
-    getHasRole()
+  }
+  
+}
+
+const removeRole = async (_id:string)=>{
+  console.log(_id);
+  try {
+    if(_id == '66d0460852b485bba2be883e') {
+      ElNotification({
+          type: 'error',
+          message: '无法删除管理员角色'
+        })
+    } else {
+      let result: any = await reqRemoveRole(_id);
+      console.log(result);
+      if(result.ActionType == 'ok') {
+        ElNotification({
+          type: 'success',
+          message: '删除成功'
+        })
+      }
+      getHasRole()
+    }
   } catch(Err) {
     ElNotification({
       type: 'error',

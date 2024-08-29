@@ -31,11 +31,8 @@ const props = defineProps({
 
 const emit = defineEmits(["kerwinchange"])
 
-const uploadAvatar = computed(
-() =>
-  props.avatar.includes("blob")
-    ? props.avatar
-    : "http://localhost:3000" + props.avatar
+const uploadAvatar = computed(() =>
+ props.avatar.includes("blob")? props.avatar:props.avatar
 );
 
 const handleChange = file => {

@@ -97,10 +97,10 @@ const validatorUserName = (rule: any, value: any, callback: any) => {
   //如果不符合条件callBack方法,注入错误提示信息
   // console.log(rule);
   
-  if (value.length >= 5) {
+  if (value.length >= 3) {
     callback();
   } else {
-    callback(new Error('账号长度至少五位'));
+    callback(new Error('账号长度至少3位'));
   }
 }
 

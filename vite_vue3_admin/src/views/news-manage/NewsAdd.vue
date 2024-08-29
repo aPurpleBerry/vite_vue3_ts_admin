@@ -110,7 +110,7 @@ const submitForm = ()=>{
       if(valid){
           console.log(newsForm)
           // //后台通信,
-          let res = await upload("/news/add",newsForm)
+          let res:any = await upload("/news/add",newsForm)
           console.log(res);
           if(res.ActionType == 'OK') {
             ElNotification({

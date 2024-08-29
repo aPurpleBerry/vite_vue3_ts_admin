@@ -28,6 +28,7 @@ interface userInfo {
   userId?: number,
   avatar: string,
   username: string,
+  name: string,
   password: string,
   gender: number,
   introduction: string,

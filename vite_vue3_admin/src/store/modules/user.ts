@@ -29,7 +29,10 @@ let useUserStore = defineStore('User', {
       token: GET_TOKEN(), //用户唯一标识token
       menuRoutes: constantRoute, //菜单生成路由
       username: '',
-      avatar: ''
+      name: '',
+      avatar: '',
+      gender: 0,
+      introduction: ''
     }
   },
   //异步、逻辑
@@ -38,9 +41,10 @@ let useUserStore = defineStore('User', {
     async userLogin(data: loginForm) {
       let result:loginResponseData = await reqLogin(data)
       // console.log('userts',result);
+      console.log(result);
       
       if(result.data.code == 200) {
-        this.token = (result.data.token as string);
+        this.token = (result.data.token as string); 
         SET_TOKEN((result.data.token as string))
         return 'ok'
       } else {
@@ -54,8 +58,10 @@ let useUserStore = defineStore('User', {
       // console.log('userts userInfo',result);
       
       if(result.data.code == 200) {
-  
         this.username = result.data.username as string
+        this.name = result.data.name as string
+        this.gender = result.data.gender
+        this.introduction = result.data.introduction
         this.avatar = 'http://127.0.0.1:3000/'+ result.data.avatar as string
 
         //计算用户的路由

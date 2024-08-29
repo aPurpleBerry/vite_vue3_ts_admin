@@ -7,7 +7,7 @@
         <el-table-column label="修改时间" prop="updatetime"></el-table-column>
         <el-table-column label="操作" width="300px">
             <!-- row:即为已有的菜单对象|按钮的对象的数据 -->
-            <template #="{ row, $index }">
+            <template #="{ row }">
                 <el-button type="primary" @click="" size="small"
                     :disabled="row.level == 3 ? true : false">{{
                         row.level == 2 ? '添加功能'
@@ -41,6 +41,7 @@ onMounted(() => {
 const getHasPermisstion = async () => {
   try {
     let result: any = await reqAllPermisstion();
+    //@ts-ignore
     PermisstionArr.value.push(result.data.ans2)
     console.log(PermisstionArr.value);
     

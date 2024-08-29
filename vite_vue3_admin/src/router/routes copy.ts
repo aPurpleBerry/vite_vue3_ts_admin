@@ -107,6 +107,7 @@ export const constantRoute = [
       },
       {
         path: '/news/newslist',
+        //@ts-ignore
         component: ()=>import('@/views/news-manage/NewsList.vue'),
         name: 'NewsEdit', //命名路由
         meta: {

@@ -24,7 +24,7 @@
           <el-table-column label="创建时间" align="center" prop="createTime" show-overflow-tooltip></el-table-column>
           <el-table-column label="更新时间" align="center" prop="updateTime" show-overflow-tooltip></el-table-column>
           <el-table-column label="操作" width="300px" align="center">
-              <template #="{ row, $index }">
+              <template #="{ row }">
                 <el-button type="primary" size="small" icon="User" @click="setRole(row)">分配角色</el-button>
                 <el-button type="primary" size="small" icon="Edit" @click="updateUser(row)">编辑</el-button>
                 <el-popconfirm :title="`你确定要删除${row.username}?`" width="260px" @confirm="deleteUser(row._id)">
@@ -114,7 +114,7 @@ import { ref, onMounted, reactive, nextTick } from 'vue';
 import { reqUserInfo, reqRemoveUser,reqFindUser,reqAddOrUpdateUser,reqSetUserRole } from '@/api/acl/user'
 import { reqAllRoleList } from '@/api/acl/role'
 import { ElNotification } from 'element-plus';
-
+import type {  AllRole } from '@/api/acl/user/type';
 let settingStore = useLayOutSettingStore(); //获取模板setting仓库
 let userArr = ref([]); //存储全部用户的数组
 let drawer = ref<boolean>(false); //定义响应式数据控制抽屉的显示与隐藏
@@ -150,6 +150,7 @@ const search = async ()=>{
 /********************添加 & 更新 用户***************************/
 let formRef = ref<any>(); //获取form组件实例
 //校验用户名字回调函数
+//@ts-ignore
 const validatorUsername = (rule: any, value: any, callBack: any) => {
     //用户名字|昵称,长度至少五位
     if (value.trim().length >= 3) {
@@ -159,6 +160,7 @@ const validatorUsername = (rule: any, value: any, callBack: any) => {
     }
 }
 //校验用户名字回调函数
+//@ts-ignore
 const validatorname = (rule: any, value: any, callBack: any) => {
     //用户名字|昵称,长度至少五位
     if (value.trim().length >= 3) {
@@ -167,6 +169,7 @@ const validatorname = (rule: any, value: any, callBack: any) => {
         callBack(new Error('用户昵称至少3位'))
     }
 }
+//@ts-ignore
 const validatorPassword = (rule: any, value: any, callBack: any) => {
     //用户名字|昵称,长度至少五位
     if (value.trim().length >= 6) {
@@ -219,11 +222,17 @@ const cancel = () => {
 
 //保存按钮的回调
 const save = async () => {
+  if(userParams.username == 'admin') {
+    ElNotification({ type: 'error', message: '你没有修改管理员的权限' });
+    drawer.value = false;
+  } else {
     await formRef.value.validate()
     //保存按钮:添加新的用户|更新已有的用户账号信息
-    console.log(userParams) 
+    // console.log(userParams) 
     try{
       let res = await reqAddOrUpdateUser(userParams)
+      // console.log(res);
+      
       if(res.ActionType == 'ok') {
         ElNotification({ type: 'success', message: userParams._id ? '更新成功' : '添加成功' });
       }
@@ -233,7 +242,7 @@ const save = async () => {
       console.log(Err);
       
     }
-    
+  } 
 }
 /*************************分页逻辑*********************** */
 onMounted(() => {
@@ -250,16 +259,16 @@ const getHasUser = async (pager = 1) => {
     total.value = result.data.result.length
     // console.log(result);
     let start:number = (pageNo.value - 1)* pageSize.value
-    console.log('start ---- ', start);
+    // console.log('start ---- ', start);
     
     
     let len:number = ((total.value-start)>pageSize.value)?pageSize.value:(total.value-start)
     console.log('len ---- ' ,len);
-    console.log(result.data.result);
+    // console.log(result.data.result);
     if((start+pageSize.value-1)<=total.value) {
       userArr.value = result.data.result.slice(start,(start+pageSize.value))
-      console.log('-------------------------getHasUser-------userArr--------------');
-      console.log(userArr.value);
+      // console.log('-------------------------getHasUser-------userArr--------------');
+      // console.log(userArr.value);
       
     } else {
       userArr.value = result.data.result.slice(start)
@@ -289,7 +298,7 @@ const deleteUser= async (id:number)=>{
 }
 
 /******************** 分配角色 ***************************/
-let allRole = ref([]); //存储全部职位的数据
+let allRole = ref<AllRole>([]); //存储全部职位的数据
 let userRole = reactive({
   role: 0,
   roleName: ""
@@ -307,6 +316,10 @@ const setRole = async (row: any) => {
     let result: any = await reqAllRoleList();
     // console.log(result.data.ans)
     allRole.value = result.data.ans
+    console.log('=========allRole=============');
+    
+    console.log(allRole.value);
+    
     userRole.roleName = row.roleName
     userRole.role = row.role
     // console.log('---userRole---');
@@ -341,19 +354,27 @@ const confirmClick = async () => {
       role: userRole.role,
       roleName: userRole.roleName
     }
-    console.log(data);
+    // console.log(data);
     
-    //分配用户的职位
-    try {
-      let result: any = await reqSetUserRole(data);
-      if(result.ActionType == 'ok') {
-        ElNotification({
-          type: 'success',
-          message: '分配角色成功'
-        })
+    if(data.userId == '66cc728c6329c503b3102e9e') {
+      ElNotification({
+            type: 'error',
+            message: '你没有分配管理员角色'
+          })
+    } else {
+      //分配用户的职位
+      try {
+        let result: any = await reqSetUserRole(data);
+        
+        if(result.ActionType == 'ok') {
+          ElNotification({
+            type: 'success',
+            message: '分配角色成功'
+          })
+        }
+      } catch(Err) {
+        console.log(Err);  
       }
-    } catch(Err) {
-      console.log(Err);  
     }
     drawer1.value = false;
     getHasUser()

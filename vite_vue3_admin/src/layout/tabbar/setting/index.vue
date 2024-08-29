@@ -58,7 +58,7 @@ const fullScreen = () => {
 }
 //个人中心
 const goPerson = ()=> {
-  $router.push({path: '/acl/personalcenter'})
+  $router.push({path: '/personalcenter'})
 }
 //退出登录
 const logOut = ()=> {

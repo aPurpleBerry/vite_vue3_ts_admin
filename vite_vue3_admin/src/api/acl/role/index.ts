@@ -34,7 +34,7 @@ export const reqAddRole = (data: any) => {
 }
 
 //删除已有的职位
-export const reqRemoveRole = (roleId: number) =>
+export const reqRemoveRole = (roleId: string) =>
   request.delete<any, any>(API.REMOVEROLE_URL + roleId)
 
 
