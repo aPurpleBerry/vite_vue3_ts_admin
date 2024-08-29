@@ -62,6 +62,8 @@ let useUserStore = defineStore('User', {
         try {
           let userAsyncRoute =  filerAsyncRoute(cloneDeep(asyncRoute), result.data.routes)
           this.menuRoutes = [...constantRoute, ...userAsyncRoute, anyRoute]
+          console.log(this.menuRoutes);
+          
           //目前路由器管理的只有常量路由:用户计算完毕异步路由、任意路由动态追加
           ;[...userAsyncRoute, anyRoute].forEach((route: any) => {
             router.addRoute(route)

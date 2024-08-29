@@ -39,6 +39,8 @@ import useLayOutSettingStore from '@/store/modules/setting';
 import { useRoute } from 'vue-router';
 
 let userStore = useUserStore();
+// console.log(userStore.menuRoutes);
+
 let layOutSettingStore = useLayOutSettingStore()
 //获取路由对象
 let $route = useRoute()

@@ -51,11 +51,15 @@
 
 <script setup lang="ts">
 import { ref, reactive } from "vue";
+import { useRouter } from "vue-router";
 //@ts-ignore
 import editor from "@/components/Editor/index.vue";
 //@ts-ignore
 import Upload from "@/components/Upload/index.vue";
 import upload from '@/utils/upload'
+import { ElNotification } from "element-plus";
+
+let $router = useRouter()
 
 const newsFormRef = ref();
 const newsForm = reactive({
@@ -106,8 +110,15 @@ const submitForm = ()=>{
       if(valid){
           console.log(newsForm)
           // //后台通信,
-          await upload("/adminapi/news/add",newsForm)
-          // router.push(`/news-manage/newslist`)
+          let res = await upload("/news/add",newsForm)
+          console.log(res);
+          if(res.ActionType == 'OK') {
+            ElNotification({
+              type: 'success',
+              message: '添加成功'
+            })
+          }
+          $router.push(`/news/newslist`)
       }
   })
 }

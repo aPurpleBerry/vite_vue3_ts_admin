@@ -1,4 +1,4 @@
-import axios from "axios";
+import request from "@/utils/request";
 
 function upload(path:any,userForm:any){
     const params = new FormData()
@@ -6,13 +6,13 @@ function upload(path:any,userForm:any){
         params.append(i,userForm[i])
     }
     // console.log(params)
-    return axios.post(path,params,{
+    return request.post(path,params,{
         headers:{
             "Content-Type":"multipart/form-data"
         }
     }).then(res=>{
-      console.log(res);
-      return res.data
+      // console.log('ressssssssssss');
+      return res
     })
 }
 

@@ -1,14 +1,5 @@
-<!--
- * @作者: kerwin
- * @公众号: 大前端私房菜
--->
 <template>
-    <div>
-        <el-page-header
-            content="编辑新闻"
-            @back="handleBack()"
-            title="新闻管理"
-        />
+    <div class="container">
         <el-form
             ref="newsFormRef"
             :model="newsForm"
@@ -70,9 +61,13 @@
 
 <script setup>
 import { ref, reactive,onMounted } from "vue";
-import editor from "@/components/editor/Editor";
-import Upload from "@/components/upload/Upload";
-import upload from '@/util/upload'
+// import editor from "@/components/editor/Editor";
+import editor from "@/components/Editor/index.vue";
+import Upload from "@/components/Upload/index.vue";
+import upload from '@/utils/upload'
+import {reqEditInitrial} from '@/api/news'
+// import Upload from "@/components/upload/Upload";
+// import upload from '@/util/upload'
 import {useRouter,useRoute} from 'vue-router'
 import axios from 'axios'
 const router = useRouter()
@@ -114,7 +109,7 @@ const options = [
     value: 3
   }
 ];
-
+ 
 const handleUploadChange = (file)=>{
     newsForm.cover = URL.createObjectURL(file);
     newsForm.file = file
@@ -125,7 +120,7 @@ const submitForm = ()=>{
         if(valid){
             // console.log(newsForm)
             //后台通信,
-            await upload("/adminapi/news/list",newsForm)
+            await upload("/news/list",newsForm)
             router.back()
         }
     })
@@ -134,18 +129,23 @@ const submitForm = ()=>{
 const handleBack=()=>{
     router.back()
 }
+
 //取当前页面数据
 onMounted(async ()=>{
     // console.log(route.params.id)
-
-   const res = await  axios.get(`/adminapi/news/list/${route.params.id}`)
-   console.log(res.data.data[0])
-
-   Object.assign(newsForm,res.data.data[0])
+  let res = await reqEditInitrial(route.params.id)
+  //  const res = await  request.get(`/news/list/${route.params.id}`)
+  //  console.log(res);
+  //  console.log(res.data[0])
+   Object.assign(newsForm,res.data[0])
 })
 </script>
 <style lang="scss" scoped>
-.el-form {
-  margin-top: 50px;
+.container {
+  width: 100%;
+  height: 600px;
+  overflow: scroll;
+  background-color: #fff;
+  padding: 50px 20px;
 }
 </style>

@@ -137,7 +137,19 @@ export const asyncRoute = [
         }
       },
       {
+        path: '/news/newsedit/:id',
+        //@ts-ignore
+        component: ()=>import('@/views/news-manage/NewsEdit.vue'),
+        name: 'NewsEdit', //命名路由
+        meta: {
+          title: '编辑新闻',
+          hidden: false,
+          // icon: 'DocumentAdd',
+        }
+      },
+      {
         path: '/news/newslist',
+        //@ts-ignore
         component: ()=>import('@/views/news-manage/NewsList.vue'),
         name: 'NewsList', //命名路由
         meta: {

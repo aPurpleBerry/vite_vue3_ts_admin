@@ -147,7 +147,6 @@ const handleDelete =async (item)=>{
   // console.log(item)
   try {
     await reqDelNews(item._id)
-
     // await axios.delete(`/adminapi/news/list/${item._id}`)
     ElMessage({
       type: 'success',
@@ -162,7 +161,7 @@ const handleDelete =async (item)=>{
 //编辑回调
 const handleEdit = (item)=>{
   //跳转到/news-manage/editnews/:id
-  router.push(`/news-manage/editnews/${item._id}`)
+  router.push(`/news/newsedit/${item._id}`)
 }
 </script>
 <style lang="scss" scoped>
