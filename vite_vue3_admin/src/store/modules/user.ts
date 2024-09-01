@@ -62,7 +62,7 @@ let useUserStore = defineStore('User', {
         this.name = result.data.name as string
         this.gender = result.data.gender
         this.introduction = result.data.introduction
-        this.avatar = 'http://127.0.0.1:3000/'+ result.data.avatar as string
+        this.avatar = 'http://www.apurpleberry.cn:3000'+ result.data.avatar as string
 
         //计算用户的路由
         try {
